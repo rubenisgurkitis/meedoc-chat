@@ -9,12 +9,14 @@ module.exports = React.createClass({
 		Reflux.connect(ChatStore, 'chatStore')
 	],
 
-	componentWillReceiveProps: function(nextProps) {
-		ChatActions.connectSocket(nextProps.userName);
+	componentWillMount: function() {
+		ChatActions.connectSocket();
 	},
 
 	handleSendButtonClick: function(event) {
 		ChatActions.send(document.getElementById('chat-input').value);
+		document.getElementById('chat-input').value = '';
+		document.getElementById('chat-input').placeholder = '';
 	},
 
 	handleLogoutButtonClick: function(event) {
@@ -24,6 +26,8 @@ module.exports = React.createClass({
 	handleInputKeyPress: function(event) {
 		if (event.nativeEvent.keyCode === 13){
 			ChatActions.send(event.target.value);
+			event.target.value = null;
+			event.target.placeholder = '';
 		}
 	},
 
@@ -32,16 +36,18 @@ module.exports = React.createClass({
 		if (sUserName) {
 			return (
 				<div>
-						<ChatMessages messages={this.state.chatStore.messages} />
-						<button
-							onClick={this.handleLogoutButtonClick}>
-							Logout
-						</button>
-					<div style={{display: "fixed"}}>
+					<div>
+							<ChatMessages messages={this.state.chatStore.messages} />
+							<button
+								onClick={this.handleLogoutButtonClick}>
+								Logout
+							</button>
+					</div>
+					<div className="chat-input">
 						<input
 							id="chat-input"
+							className="input"
 							onKeyPress={this.handleInputKeyPress}
-							style={{width: "300px"}}
 							placeholder="Enter messages here!!!">
 						</input>
 						<button

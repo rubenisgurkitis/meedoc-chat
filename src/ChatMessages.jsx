@@ -1,11 +1,10 @@
 var React = require('react');
 
 module.exports = React.createClass({
-
 	render: function() {
 		var messageList = this.props.messages.map(function(message) {
 			return	(
-				<li>
+				<li key={message.key}>
 					<span>{message.name}</span>
 						<p dangerouslySetInnerHTML={{__html: message.text}} />
 				</li>
