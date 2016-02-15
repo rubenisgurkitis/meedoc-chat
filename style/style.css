@@ -4,7 +4,28 @@ body {
 
 .container {
 	text-align: center;
-	margin-top: 100px;
+}
+
+.title {
+	font-size: 64px;
+	color: grey;
+	margin-top: 40px;
+	display: inline;
+}
+
+.logout {
+	display: inline;
+	float: right;
+	margin-top: 8px;
+}
+
+.subtitle {
+	font-size: 16px;
+	margin-top: 32px;
+}
+
+.input-group-welcome {
+	margin-top: 24px;
 }
 
 .input:focus {
@@ -12,42 +33,91 @@ body {
 }
 
 .input {
-		font-size: 26px;
-		padding-bottom: 10px;
-		line-height: 26px;
-		height: 46px;
-		-webkit-appearance: none;
-		border: none;
-		border-bottom: 1px solid #999999;
-		margin: 3 0 3 0;
-		padding-top: 25px;
-		max-width: 100%;
-		-webkit-border-radius: 0;
-		-moz-border-radius: 0;
-		border-radius: 0;
-		-moz-background-clip: padding;
-		-webkit-background-clip: padding-box;
-		background-clip: padding-box;
+	font-size: 16px;
+	padding-bottom: 10px;
+	line-height: 26px;
+	height: 46px;
+	-webkit-appearance: none;
+	border: none;
+	border-bottom: 1px solid #999999;
+	margin: 3 0 3 0;
+	padding-top: 25px;
+	max-width: 100%;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
 }
 
-.welcome-button {
-	border: 1px solid white;
-		border-radius: 5px;
-		height: 32px;
-		margin-left: 5px;
+.button {
+	margin-left: 5px;
+	webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: transparent;
+	border: 2px solid #333;
+	cursor: pointer;
+	outline-style: none;
+	position: relative;
+	padding: 5px 30px;
+}
+
+button:enabled, button:active {
+	border-color: #1d70b7;
+	color: #1d70b7;
+}
+
+button:enabled:hover {
+	border-color: #2a8add;
+	color: #2a8add;
+}
+
+button:disabled {
+	border-color: #ccc;
+  color: #ccc;
+  cursor: default;
 }
 
 ul {
 	width: 400px;
 	margin: 0 auto;
 	text-align: left;
+	overflow-y: auto;
+	height: 450px;
 	list-style-type: none;
 }
 
-.chat-input {
+.chat-input-group {
+	display: block;
 	position: fixed;
 	bottom: 10px;
 	width: 80%;
 	margin: 0 0 0 -40%;
 	left: 50%;
+}
+
+.chat-input {
+	width: 60%;
+}
+
+.chat-button {
+	margin-left: 8px;
+	background-color: white;
+	position: relative;
+	border: 0;
+	display: inline-block;
+	padding: 5px 10px;
+	width: 60px;
+	outline: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.chat-message-header {
+	font-weight: bolder;
 }

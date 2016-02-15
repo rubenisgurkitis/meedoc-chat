@@ -19,10 +19,6 @@ module.exports = React.createClass({
 		document.getElementById('chat-input').placeholder = '';
 	},
 
-	handleLogoutButtonClick: function(event) {
-		ChatActions.logout();
-	},
-
 	handleInputKeyPress: function(event) {
 		if (event.nativeEvent.keyCode === 13){
 			ChatActions.send(event.target.value);
@@ -38,20 +34,17 @@ module.exports = React.createClass({
 				<div>
 					<div>
 							<ChatMessages messages={this.state.chatStore.messages} />
-							<button
-								onClick={this.handleLogoutButtonClick}>
-								Logout
-							</button>
 					</div>
-					<div className="chat-input">
+					<div className="chat-input-group" >
 						<input
 							id="chat-input"
-							className="input"
+							className="input chat-input"
 							onKeyPress={this.handleInputKeyPress}
-							placeholder="Enter messages here!!!">
+							placeholder="Enter messages here!!!" >
 						</input>
 						<button
-							onClick={this.handleSendButtonClick}>
+							className="chat-button"
+							onClick={this.handleSendButtonClick} >
 							Send
 						</button>
 					</div>

@@ -7,7 +7,8 @@ var ConnectionAttemps = 0;
 var initialState = {
 	messages: [],
 	user: null,
-	connected: false
+	connected: false,
+	errorMessage: null
 };
 
 module.exports = Reflux.createStore({
@@ -36,14 +37,18 @@ module.exports = Reflux.createStore({
 	},
 
 	onCloseConnection(event) {
-		this.state.connected = false;
-		this.state.user = null;
-		this.state.messages = [];
-		this.trigger(this.state);
+		if (event.code === 1006 && ConnectionAttemps < 3) {
+			ConnectionAttemps++;
+			this.onConnectSocket();
+		} else {
+			this.state.connected = false;
+			this.state.user = null;
+			this.state.messages = [];
+			this.trigger(this.state);
+		}
 	},
 
 	onConnectionError(event) {
-		debugger
 		if (ConnectionAttemps < 3) {
 			ConnectionAttemps++;
 			this.onConnectSocket();
@@ -54,13 +59,18 @@ module.exports = Reflux.createStore({
 		// is not possible.
 	},
 
+	getTime() {
+		return new Date().toLocaleTimeString() + "  ";
+	},
+
 	onMessageReceived(event) {
 		var messageKey = this.getNewKey();
 		var oMessage = JSON.parse(event.data);
 		this.state.messages = this.state.messages.concat({
 			key: messageKey,
 			name: oMessage.sender,
-			text: oMessage.message
+			text: oMessage.message,
+			time: this.getTime()
 		});
 		this.trigger(this.state);
 	},
@@ -71,7 +81,8 @@ module.exports = Reflux.createStore({
 		this.state.messages = this.state.messages.concat({
 			key: messageKey,
 			name: this.state.user,
-			text: sMessage
+			text: sMessage,
+			time: this.getTime()
 		});
 		this.trigger(this.state);
 	},
