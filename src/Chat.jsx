@@ -9,7 +9,14 @@ module.exports = React.createClass({
 		Reflux.connect(ChatStore, 'chatStore')
 	],
 
+	getInitialState: function() {
+		return {
+			inputHasText: false
+		};
+	},
+
 	componentWillMount: function() {
+		// Tries to connect to the socket before the rendering starts
 		ChatActions.connectSocket();
 	},
 
@@ -17,6 +24,9 @@ module.exports = React.createClass({
 		ChatActions.send(document.getElementById('chat-input').value);
 		document.getElementById('chat-input').value = '';
 		document.getElementById('chat-input').placeholder = '';
+		this.setState({
+			inputHasText: false
+		});
 	},
 
 	handleInputKeyPress: function(event) {
@@ -24,12 +34,28 @@ module.exports = React.createClass({
 			ChatActions.send(event.target.value);
 			event.target.value = null;
 			event.target.placeholder = '';
+			this.setState({
+				inputHasText: false
+			});
+		}
+	},
+
+	handleInputChange: function(event) {
+		if (event.target.value !== '') {
+			this.setState({
+				inputHasText: true
+			});
+		} else {
+			this.setState({
+				inputHasText: false
+			});
 		}
 	},
 
 	render: function() {
-		var sUserName = this.state.chatStore.user;
-		if (sUserName) {
+		var userName = this.state.chatStore.user;
+		var connected = this.state.chatStore.connected;
+		if (userName && connected) {
 			return (
 				<div>
 					<div>
@@ -39,11 +65,13 @@ module.exports = React.createClass({
 						<input
 							id="chat-input"
 							className="input chat-input"
+							onChange={this.handleInputChange}
 							onKeyPress={this.handleInputKeyPress}
 							placeholder="Enter messages here!!!" >
 						</input>
 						<button
 							className="chat-button"
+							disabled={!this.state.inputHasText}
 							onClick={this.handleSendButtonClick} >
 							Send
 						</button>

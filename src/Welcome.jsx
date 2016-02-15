@@ -16,11 +16,19 @@ module.exports = React.createClass({
 
 	handleButtonClick: function(event) {
 		ChatActions.setUser(document.getElementById('input-name').value);
+		// Sets inputHasText to false to render correctly next time
+		this.setState({
+			inputHasText: false
+		});
 	},
 
 	handleInputKeyPress: function(event) {
 		if (event.nativeEvent.keyCode === 13){
 			ChatActions.setUser(document.getElementById('input-name').value);
+			// Sets inputHasText to false to render correctly next time
+			this.setState({
+				inputHasText: false
+			});
 		}
 	},
 
@@ -28,7 +36,7 @@ module.exports = React.createClass({
 		ChatActions.logout();
 	},
 
-	onInputChange: function(event) {
+	handleInputChange: function(event) {
 		if (event.target.value !== '') {
 			this.setState({
 				inputHasText: true
@@ -41,14 +49,16 @@ module.exports = React.createClass({
 	},
 
 	getContent: function(name, error) {
-		if (name) {
-			return <p>Welcome <b>{name}</b></p>;
-		} else if (error){
+		var user = this.state.chatStore.user;
+		var errorMessage = this.state.chatStore.errorMessage;
+		if (user) {
+			return <p>Welcome <b>{user}</b></p>;
+		} else if (errorMessage){
 			return (
 				<div>
 					<p
 						className="subtitle" >
-						Enter your username
+						{errorMessage}
 					</p>
 				</div>
 			);
@@ -57,7 +67,7 @@ module.exports = React.createClass({
 				<div className="input-group-welcome" >
 					<input id="input-name"
 						className="input"
-						onChange={this.onInputChange}
+						onChange={this.handleInputChange}
 						onKeyPress={this.handleInputKeyPress}
 						placeholder="Enter username here" />
 					<button
@@ -90,8 +100,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var view = this.getContent(this.state.chatStore.user,
-			this.state.chatStore.errorMessage);
+		var view = this.getContent();
 		var logoutView = this.getLogoutButton(this.state.chatStore.connected);
 		return (
 			<div>

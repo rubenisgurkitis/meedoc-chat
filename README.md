@@ -9,7 +9,7 @@ Checkout this repo, install dependencies, then start the gulp process with the f
 
 ```
 	> git clone https://github.com/rubenisgurkitis/meedoc-chat.git
-	> cd chat-client
+	> cd meedoc-chat
 	> npm install
 	> gulp
 ```

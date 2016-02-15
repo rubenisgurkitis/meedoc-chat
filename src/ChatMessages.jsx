@@ -2,11 +2,14 @@ var React = require('react');
 
 module.exports = React.createClass({
 	componentWillUpdate: function() {
+		// Checks if the list was scrolled till the bottom before the upload
+		// happens
 		var listDom = document.getElementById('message-list');
 		this.shouldScrollBottom = listDom.scrollTop + listDom.offsetHeight === listDom.scrollHeight;
 	},
 
 	componentDidUpdate: function() {
+		// If the list was scrolled till the bottom, scrolls to the new bottom
 		if (this.shouldScrollBottom) {
 			var listDom = document.getElementById('message-list');
 			listDom.scrollTop = listDom.scrollHeight;

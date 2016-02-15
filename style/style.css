@@ -67,9 +67,15 @@ body {
 	padding: 5px 30px;
 }
 
-button:enabled, button:active {
+button:enabled {
 	border-color: #1d70b7;
 	color: #1d70b7;
+}
+
+.button:active {
+	border-color: white;
+	color: white;
+	background-color: #1d70b7;
 }
 
 button:enabled:hover {
@@ -116,6 +122,12 @@ ul {
 	outline: none;
 	font-size: 16px;
 	cursor: pointer;
+}
+
+.chat-button:active {
+	border-color: white;
+	color: forestgreen;
+	background-color: white;
 }
 
 .chat-message-header {

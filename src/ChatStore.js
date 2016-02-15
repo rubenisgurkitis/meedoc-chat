@@ -24,6 +24,7 @@ module.exports = Reflux.createStore({
 	},
 
 	onConnectSocket() {
+		// Open the connections and attach listener for open, close and error
 		Socket = new WebSocket(SocketUrl + this.state.user);
 		Socket.onopen = this.onOpenConnection;
 		Socket.onclose = this.onCloseConnection;
@@ -31,15 +32,20 @@ module.exports = Reflux.createStore({
 	},
 
 	onOpenConnection(event) {
+		// Once the connection is stablished, attach listener for onmessage
 		Socket.onmessage = this.onMessageReceived;
 		this.state.connected = true;
+		ConnectionAttemps = 0;
 		this.trigger(this.state);
 	},
 
 	onCloseConnection(event) {
-		if (event.code === 1006 && ConnectionAttemps < 3) {
-			ConnectionAttemps++;
-			this.onConnectSocket();
+		// No error should be handled here but since this particular server side is
+		// implemented to respond with event code 1006 after 1 minutes without
+		// interaction and the WebSocket object seems to don't recognize this error
+		// as an error, the handling have to be managed here too.
+		if (event.code === 1006) {
+			this.manageError(event);
 		} else {
 			this.state.connected = false;
 			this.state.user = null;
@@ -48,15 +54,21 @@ module.exports = Reflux.createStore({
 		}
 	},
 
-	onConnectionError(event) {
+	manageError(event) {
+		// Attempt to reconnect 3 times
 		if (ConnectionAttemps < 3) {
 			ConnectionAttemps++;
 			this.onConnectSocket();
 		} else {
+			// If no reconnection was possible, the error will be shown to the user
+			this.state.errorMessage = event.code + '-' + event.reason;
+			this.trigger(this.state);
 			Socket.close();
 		}
-		// Add code to try to reconnect and logout in case that reconnection
-		// is not possible.
+	},
+
+	onConnectionError(event) {
+		this.manageError(event);
 	},
 
 	getTime() {
