@@ -1,9 +1,9 @@
 var Reflux = require('reflux');
-var ChatActions = require('./ChatActions');
+var ChatActions = require('../actions/ChatActions');
+
 var SocketUrl = 'ws://codingtest.meedoc.com/ws?username=';
 var Socket;
 var ConnectionAttemps = 0;
-
 var initialState = {
 	messages: [],
 	user: null,

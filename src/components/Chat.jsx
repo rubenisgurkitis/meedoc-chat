@@ -1,7 +1,7 @@
 var React = require('react');
 var ChatMessages = require('./ChatMessages');
-var ChatStore = require('./ChatStore');
-var ChatActions = require('./ChatActions');
+var ChatStore = require('../stores/ChatStore');
+var ChatActions = require('../actions/ChatActions');
 var Reflux = require('reflux');
 
 module.exports = React.createClass({

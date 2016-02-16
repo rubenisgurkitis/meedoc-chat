@@ -1,20 +1,26 @@
 body {
 		font-family: 'Open Sans', sans-serif;
+		margin: 0px;
 }
 
 .container {
 	text-align: center;
 }
 
+header {
+	background-color: #1d70b7;
+}
+
 .title {
 	font-size: 64px;
-	color: grey;
-	margin-top: 40px;
-	display: inline;
+	color: white;
+	padding-top: 20px;
 }
 
 .logout {
-	display: inline;
+	position: absolute;
+	top: 10px;
+	right: 10px;
 	float: right;
 	margin-top: 8px;
 }
@@ -52,7 +58,6 @@ body {
 }
 
 .button {
-	margin-left: 5px;
 	webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
@@ -63,8 +68,11 @@ body {
 	border: 2px solid #333;
 	cursor: pointer;
 	outline-style: none;
-	position: relative;
 	padding: 5px 30px;
+}
+
+.button-input {
+	margin-left: 5px;
 }
 
 button:enabled {
@@ -72,21 +80,39 @@ button:enabled {
 	color: #1d70b7;
 }
 
-.button:active {
-	border-color: white;
-	color: white;
-	background-color: #1d70b7;
-}
-
 button:enabled:hover {
 	border-color: #2a8add;
 	color: #2a8add;
+}
+
+.button:focus:active {
+	border-color: white;
+	color: white;
+	background-color: #1d70b7;
 }
 
 button:disabled {
 	border-color: #ccc;
   color: #ccc;
   cursor: default;
+}
+
+.button-logout:enabled {
+	border-color: white;
+	color: white;
+	background-color: #1d70b7;
+}
+
+.button-logout:enabled:hover {
+	border-color: white;
+	background-color: #2a8add;
+	color: white;
+}
+
+.button-logout:focus:active {
+	border-color: red;
+	color: #1d70b7;
+	background-color: white;
 }
 
 ul {
@@ -124,7 +150,7 @@ ul {
 	cursor: pointer;
 }
 
-.chat-button:active {
+.chat-button:focus:active {
 	border-color: white;
 	color: forestgreen;
 	background-color: white;

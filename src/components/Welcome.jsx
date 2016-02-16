@@ -1,7 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
-var ChatActions = require('./ChatActions');
-var ChatStore = require('./ChatStore');
+var ChatActions = require('../actions/ChatActions');
+var ChatStore = require('../stores/ChatStore');
 
 module.exports = React.createClass({
 	mixins: [
@@ -71,7 +71,7 @@ module.exports = React.createClass({
 						onKeyPress={this.handleInputKeyPress}
 						placeholder="Enter username here" />
 					<button
-						className="button"
+						className="button button-input"
 						type="button"
 						disabled={!this.state.inputHasText}
 						onClick={this.handleButtonClick} >
@@ -88,7 +88,7 @@ module.exports = React.createClass({
 				<div
 					className="logout" >
 					<button
-						className="button"
+						className="button button-logout"
 						onClick={this.handleLogoutButtonClick} >
 						Logout
 					</button>

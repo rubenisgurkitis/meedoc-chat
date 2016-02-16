@@ -1,11 +1,10 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Welcome = require('./Welcome');
 var Chat = require('./Chat');
 var Reflux = require('reflux');
-var ChatStore = require('./ChatStore');
+var ChatStore = require('../stores/ChatStore');
 
-var App = React.createClass({
+module.exports = React.createClass({
 	mixins: [
 		Reflux.connect(ChatStore, 'chatStore')
 	],
@@ -27,6 +26,3 @@ var App = React.createClass({
 		}
 	}
 });
-
-var element = React.createElement(App, {});
-ReactDOM.render(element, document.querySelector('.container'));
