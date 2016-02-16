@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactEmoji = require('react-emoji');
 
 module.exports = React.createClass({
 	componentWillUpdate: function() {
@@ -18,6 +19,11 @@ module.exports = React.createClass({
 
 	render: function() {
 		var messageList = this.props.messages.map(function(message) {
+			var text = ReactEmoji.emojify(message.text);
+			// Maybe this is a good point to use dangerouslySetInnerHTML feature
+			// but with it, the emoji component doesn't work. In this case, I think
+			// the features are more important so I decided to don't use
+			// dangerouslySetInnerHTML
 			return	(
 				<li key={message.key}>
 					<span
@@ -28,7 +34,7 @@ module.exports = React.createClass({
 						className="chat-message-header" >
 						{message.name}
 					</span>
-					<p dangerouslySetInnerHTML={{__html: message.text}} />
+					<p>{text}</p>
 				</li>
 			);
 		});

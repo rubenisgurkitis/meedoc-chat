@@ -111,7 +111,7 @@ button:disabled {
 
 .button-logout:focus:active {
 	border-color: red;
-	color: #1d70b7;
+	color: red;
 	background-color: white;
 }
 

@@ -61,7 +61,8 @@ module.exports = Reflux.createStore({
 			this.onConnectSocket();
 		} else {
 			// If no reconnection was possible, the error will be shown to the user
-			this.state.errorMessage = event.code + '-' + event.reason;
+			this.state.errorMessage = 'Error: ' + event.code + '-' + event.reason +
+				' Please, reload the page';
 			this.trigger(this.state);
 			Socket.close();
 		}
