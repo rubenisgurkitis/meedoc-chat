@@ -29,3 +29,4 @@ Start the gulp process
 ```
 > gulp
 ```
+Open the file *index.html* in your favorite browser
