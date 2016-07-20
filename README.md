@@ -1,9 +1,6 @@
 Meedoc Chat App
 ====
 
-This app is part of the selection process for a web developer vacancy in Meedoc.
----
-
 ####Requisites to run the app
 To install all dependencies you will need to have installed *npm*. First, you will need to install *Node.js* and after that, run the following command to ensure that you are using an updated version of *npm*
 ```
